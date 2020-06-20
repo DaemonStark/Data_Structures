@@ -59,6 +59,65 @@ class Linked_List:              # This Class specifies the properties of the lin
         new_node.next = curr_node.next      # we assign the new node's next pointer to the current node's next pointer so to attach that node to the new node
         curr_node.next = new_node           # and the current node's next pointer is the new node so in this way we establish the connection
 
+# Singly Linked List : Deleting a node
+# We Encounter 2 cases here:
+# 1. The node to be deleted is the head node
+# 2. The node to be deleted is other than head
+    
+    def delete_node(self, key):
+        
+        curr_node = self.head            #  We assign head pointer to a node
+        
+# In 1st case: 
+# i) Change where head is pointing 
+# ii) Remove next pointer of that node i.e point that next pointer to none so the node is now deleted
+
+        if curr_node and curr_node.data == key: # if the curr_node is not none i.e the list is not empty -and- curr_node's data matches with the passed data key then...
+            self.head = curr_node.next      #   we first assign the next pointer of the current node i.e the next node itself to be the head and then...
+            curr_node = None                #   the current node is discarded or deleted from the list by pointing it to nothing
+            return                          #   return the function
+
+# In 2nd case:
+# i) Loop through the list
+# ii) Keep track of what node proceeds the current nod
+
+        prev = None                                 # Previous variable is taken and assigned None, it represents the previous node of the node that is going to be deleted here
+
+        while curr_node and curr_node.data != key:  # case 2 scenario: traverse the list until we find the key that we are looking for here, so when we find that then it will come out of the loop
+            prev = curr_node                        # prev node is initialized by the current node
+            curr_node = curr_node.next              # and next pointer of the current node is also put here so to move along in the loop
+
+        if curr_node.next is None:                  # Now if current node's next pointer is None then the list is empty
+            return                                  # so return    
+        
+        prev.next = curr_node.next                  # Now as we have found the node to be deleted so we put the previous node's next pointer to be the current node's next means next node, so we break the connection of the node to be deleted 
+        curr_node = None                            # and the current node is now assigned none so it's deleted
+
+# Deleting node at given position: Here we are going to delete node at given position
+# Same concept : At head or not at head
+
+    def delete_node_at_pos(self, pos):  # This function will delete node at specified position
+        curr_node = self.head           # head is pointed to the current node
+
+        # At head   
+        if pos == 0:                    # This checks whether the position is 0 that is head of the list
+            self.head = curr_node.next  # head is pointed to the next node of the current node
+            curr_node.next = None       # the node is deleted hence by assigning the current node's next pointer to None
+            return                      # return
+        
+        # Not at head
+        prev = None                     # Here we need to see the previous node too, so initialize it to None for now
+        count = 1                       # We take a count variable here to see our position
+        while curr_node and count != pos:   # here we loop through till the curr_node node is not none i.e is active and the count is not equal to the position 
+            prev = curr_node            # Traversing through the list, curr_node is the previous node now
+            curr_node = curr_node.next  # current node's next is now put as current node
+            count += 1                  # Count is incremented by 1 to move forward ; this loop goes on till we find the required position
+
+        if curr_node is None:           # Checking whether current node is none
+            return                      # return if current node is none
+
+        prev.next = curr_node.next      # Once we find the current node, then previous node's next is set to current node's next pointer means the next node of current node
+        curr_node.next = None           # and the current node's next pointer is set to None so it is deleted now
 
 
 
@@ -78,12 +137,36 @@ linkedlist.append("A")
 linkedlist.append("B")
 linkedlist.append("C")
 linkedlist.append("D")
+linkedlist.append("G")
+linkedlist.append("H")
 
 # Prepend class usage
 linkedlist.prepend("E")
+linkedlist.print_list()
+
+####
+print("Break between usage of functions")
+####
 
 # Insert after a node usage
-linkedlist.insert_after_node("B", "F")
+linkedlist.insert_after_node("A", "F")       # Remove this line's comment to see the usage of insert_after_node function's usage
+linkedlist.print_list()
+
+#####
+print("Break between usage of functions")
+#####
+
+# Delete a node usage
+linkedlist.delete_node("B")
+linkedlist.print_list()
+
+####
+print("Break between usage of functions")
+####
+
+# Delete a node at given position usage
+linkedlist.delete_node_at_pos(5)
+
 
 # Print the list
 linkedlist.print_list() 
