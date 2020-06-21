@@ -120,6 +120,26 @@ class Linked_List:              # This Class specifies the properties of the lin
         curr_node.next = None           # and the current node's next pointer is set to None so it is deleted now
 
 
+# SLL : Calculating Length
+# In 2 Types : Normal and Recursive
+# Normal
+    def len_iterative(self):
+        
+        count = 0
+        curr_node = self.head
+
+        while curr_node:
+            count +=1
+            curr_node = curr_node.next
+        return count
+
+# Recursive
+    def len_recursive(self, node):
+        if node is None:
+            return 0
+        return 1 + self.len_recursive(node.next)        
+
+
 
 # Print the linked list
     def print_list(self):
@@ -137,9 +157,20 @@ linkedlist.append("A")
 linkedlist.append("B")
 linkedlist.append("C")
 linkedlist.append("D")
-linkedlist.append("G")
+linkedlist.append("G") 
 linkedlist.append("H")
 
+
+# len_iterative usage
+print("The Length of the linked list is:", linkedlist.len_iterative())
+# linkedlist.len_iterative()
+linkedlist.print_list()
+
+# len_recursive usage
+print("Using Recursive length funtion",linkedlist.len_recursive(linkedlist.head))
+
+
+print("Now Prepending E")
 # Prepend class usage
 linkedlist.prepend("E")
 linkedlist.print_list()
